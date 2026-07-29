@@ -1,7 +1,7 @@
 export async function fetchSampleUsers() {
 try{
     const response = await fetch('https://jsonplaceholder.typicode.com/users');
-    const usssserss = await response.json();
+    const users = await response.json();
     return users.map(({id, name, email}) => ({id, name, email}));
 }catch (error) {
     console.error('Error fetching users:', error.message);
