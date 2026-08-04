@@ -17,3 +17,9 @@ export const createTask = (taskData) => {
   }
   return { id: Date.now(), completed: false, ...taskData };
 };
+
+export const tasks = [
+  { id: 1, title: 'Task 1', dueDate: new Date('2024-07-22'), completed: false },
+  { id: 2, title: 'Task 2', dueDate: new Date('2024-08-15'), completed: true },
+  { id: 3, title: 'Task 3', dueDate: new Date('2024-09-10'), completed: false },
+];
