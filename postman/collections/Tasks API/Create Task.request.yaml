@@ -1,0 +1,37 @@
+$kind: http-request
+method: POST
+url: '{{baseUrl}}/api/tasks'
+order: 3000
+headers:
+  - key: Content-Type
+    value: application/json
+body:
+  type: json
+  content: |-
+    {
+      "title": "New Test Task",
+      "dueDate": "2025-12-31",
+      "completed": false
+    }
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Status code is 201", function () {
+        pm.response.to.have.status(201);
+      });
+
+      pm.test("Response has an id field", function () {
+        const json = pm.response.json();
+        pm.expect(json).to.have.property('id');
+      });
+
+      pm.test("Response title matches request", function () {
+        const json = pm.response.json();
+        pm.expect(json.title).to.eql("New Test Task");
+      });
+
+      pm.test("Save new task id to collection variable", function () {
+        const json = pm.response.json();
+        pm.collectionVariables.set("newTaskId", json.id);
+      });

@@ -1,0 +1,26 @@
+$kind: http-request
+method: GET
+url: '{{baseUrl}}/api/tasks'
+order: 1000
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Status code is 200", function () {
+        pm.response.to.have.status(200);
+      });
+
+      pm.test("Response is an array", function () {
+        const json = pm.response.json();
+        pm.expect(json).to.be.an('array');
+      });
+
+      pm.test("Each task has required fields", function () {
+        const json = pm.response.json();
+        json.forEach(function (task) {
+          pm.expect(task).to.have.property('id');
+          pm.expect(task).to.have.property('title');
+          pm.expect(task).to.have.property('dueDate');
+          pm.expect(task).to.have.property('completed');
+        });
+      });

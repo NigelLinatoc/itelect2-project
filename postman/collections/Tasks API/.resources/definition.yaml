@@ -1,0 +1,3 @@
+$kind: collection
+name: Tasks API
+description: Collection for testing the Tasks API endpoints (tasks CRUD and users)

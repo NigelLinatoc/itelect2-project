@@ -1,0 +1,21 @@
+$kind: http-request
+method: DELETE
+url: '{{baseUrl}}/api/tasks/{{taskId}}'
+order: 5000
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Status code is 200", function () {
+        pm.response.to.have.status(200);
+      });
+
+      pm.test("Response has a message field", function () {
+        const json = pm.response.json();
+        pm.expect(json).to.have.property('message');
+      });
+
+      pm.test("Response message is Deleted", function () {
+        const json = pm.response.json();
+        pm.expect(json.message).to.eql("Deleted");
+      });
