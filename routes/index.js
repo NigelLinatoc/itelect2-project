@@ -27,33 +27,34 @@ router.get("/users", async (req, res) => {
 });
 
 let nextId = 4;
+
 router.post("/tasks", (req, res) => {
-if (!validateTask(req.body)) {
-return res.status(400).json({ error: "title and due date required" });
-}
-const task = { id: nextId++, ...req.body };
-tasks.push(task);
-res.status(201).json(task);
+    if (!validateTask(req.body)) {
+        return res.status(400).json({ error: "title and due date required" });
+    }
+    const task = { id: nextId++, ...req.body };
+    tasks.push(task);
+    res.status(201).json(task);
 });
 
 router.put("/tasks/:id", (req, res) => {
-const id = Number(req.params.id);
-const index = tasks.findIndex((t) => t.id === id);
-if (index === -1) {
-return res.status(404).json({ error: "Task not found" });
-}
-tasks[index] = mergeTaskUpdate(tasks[index], req.body);
-res.status(200).json(tasks[index]);
+    const id = Number(req.params.id);
+    const index = tasks.findIndex((t) => t.id === id);
+    if (index === -1) {
+        return res.status(404).json({ error: "Task not found" });
+    }
+    tasks[index] = mergeTaskUpdate(tasks[index], req.body);
+    res.status(200).json(tasks[index]);
 });
 
 router.delete("/tasks/:id", (req, res) => {
-const id = Number(req.params.id);
-const index = tasks.findIndex((t) => t.id === id);
-if (index === -1) {
-return res.status(404).json({ error: "Task not found" });
-}
-const [removed] = tasks.splice(index, 1);
-res.status(200).json({ message: "Deleted", task: removed });
+    const id = Number(req.params.id);
+    const index = tasks.findIndex((t) => t.id === id);
+    if (index === -1) {
+        return res.status(404).json({ error: "Task not found" });
+    }
+    const [removed] = tasks.splice(index, 1);
+    res.status(200).json({ message: "Deleted", task: removed });
 });
 
 export default router;
