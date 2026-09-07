@@ -2,7 +2,7 @@ import express from "express";
 import db from "../models/index.cjs";
 const { Task, User } = db;
 const router = express.Router();
-
+//comment for midterms
 router.get("/tasks", async (req, res) => {
     const tasks = await Task.findAll();
     res.json(tasks);
