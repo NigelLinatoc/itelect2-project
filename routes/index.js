@@ -4,7 +4,7 @@ const { Task, User } = db;
 const router = express.Router();
 
 router.get("/tasks", async (req, res) => {
-    const tasks = await Task.findAll();
+    const tasks = await Task.findAll({ include: User, order: [["id", "ASC"]] });
     res.json(tasks);
 });
 
