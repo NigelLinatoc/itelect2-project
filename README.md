@@ -27,3 +27,6 @@ by: Nigel Andrei D. Linatoc - for the first semester of SY 2026-2027.
 ![alt text](screenshots/GT8_tasks.png)
 **USERS**
 ![alt text](screenshots/GT8_users.png)
+
+## LIVE URL
+https://itelect2-demo-library-pwom.onrender.com
