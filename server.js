@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import morgan from "morgan";
+import db from "./models/index.cjs";
 import authRoutes from "./routes/auth.js";
 import taskRoutes from "./routes/tasks.js";
 import userRoutes from "./routes/users.js";
@@ -14,6 +15,15 @@ if (!secret || secret.length < 32) {
   console.error("JWT_SECRET in .env must be at least 32 characters.");
   process.exit(1);
 }
+try {
+  await db.sequelize.authenticate();
+} catch (err) {
+  console.error("Cannot reach the database:", err.message);
+  process.exit(1);
+}
+const allowedOrigins = (process.env.CORS_ORIGIN || "")
+  .split(",")
+  .filter(Boolean);
 
 app.use(cors());
 app.use(morgan("dev"));
