@@ -25,7 +25,7 @@ const allowedOrigins = (process.env.CORS_ORIGIN || "")
   .split(",")
   .filter(Boolean);
 
-app.use(cors());
+app.use(cors({ origin: allowedOrigins }));
 app.use(morgan("dev"));
 app.use(express.json());
 app.use("/api/auth", authRoutes);
